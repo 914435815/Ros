@@ -5,4 +5,4 @@ for i from=1 to=9 do={/ip firewall nat add action=dst-nat chain=dstnat dst-addre
 global DomainArray [:toarray delimiter="|" [file get domain.txt contents]]
 global LineNum [:len $DomainArray]
 
-for var from=0 to=($LineNum-1) do={ run command }
+for var from=0 to=($LineNum-2) do={ /ip dns/static/add name=($DomainArray -> $var) forward-to=8.8.8.8 type=FWD match-subdomain=yes }
