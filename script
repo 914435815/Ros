@@ -1,2 +1,8 @@
 for i from=1 to=9 do={/ip firewall nat add action=dst-nat chain=dstnat dst-address-type=!local dst-port=53 \
     layer7-protocol="list$i" protocol=udp to-addresses=8.8.8.8 }
+
+##以 | 为分隔符 从文件读取域名并加入数组 , len获取数组大小，for 循环执行命令
+global DomainArray [:toarray delimiter="|" [file get domain.txt contents]]
+global LineNum [:len $DomainArray]
+
+for var from=0 to=($LineNum-1) do={ run command }
