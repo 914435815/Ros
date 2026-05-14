@@ -6,3 +6,7 @@ global DomainArray [:toarray delimiter="|" [file get domain.txt contents]]
 global LineNum [:len $DomainArray]
 
 for var from=0 to=($LineNum-2) do={ /ip dns/static/add name=($DomainArray -> $var) forward-to=8.8.8.8 type=FWD match-subdomain=yes }
+
+/file remove all_china_latest.rsc 
+/tool/fetch url=http://ros.tcp5.com/list/all_china_latest.rsc 
+/import file-name=all_china_latest.rsc 
